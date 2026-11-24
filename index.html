@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>《通天錄》線上閱讀｜五國修仙爭霸・百藝神話史詩</title>
+  <meta name="description" content="原創長篇修仙權謀爭霸史詩《通天錄》線上閱讀站。萬法百途無優劣，我即百萬雄師之上限；爭霸不稱帝，問道指太易。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div id="reading-progress" class="reading-progress" aria-hidden="true"></div>
+
+  <!-- 頂部導覽列 -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <button id="brand-btn" class="brand" type="button" title="返回書目首頁">
+        <span class="seal">錄</span>
+        <span class="brand-text">
+          <strong>通天錄</strong>
+          <small>太蒼五國・萬法百藝史詩</small>
+        </span>
+      </button>
+
+      <div class="topbar-actions">
+        <button id="btn-toc" class="icon-btn" type="button" title="章節目錄">目錄</button>
+        <button id="btn-lore" class="icon-btn" type="button" title="無劇透世界觀">設定集</button>
+        <button id="btn-settings" class="icon-btn" type="button" title="閱讀設定">字體／夜間</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 閱讀設定彈出列 -->
+  <aside id="settings-popover" class="popover hidden" aria-label="閱讀設定">
+    <div class="popover-row">
+      <span class="popover-label">閱讀主題</span>
+      <div class="seg-group">
+        <button class="seg-btn" data-set-theme="dark" type="button">玄夜墨金</button>
+        <button class="seg-btn" data-set-theme="parchment" type="button">古卷護眼</button>
+        <button class="seg-btn" data-set-theme="paper" type="button">宣紙雅白</button>
+      </div>
+    </div>
+    <div class="popover-row">
+      <span class="popover-label">字體大小</span>
+      <div class="seg-group">
+        <button id="font-dec" class="seg-btn" type="button">A−</button>
+        <span id="font-size-val" class="seg-val">19px</span>
+        <button id="font-inc" class="seg-btn" type="button">A+</button>
+      </div>
+    </div>
+    <div class="popover-row">
+      <span class="popover-label">行距寬鬆</span>
+      <div class="seg-group">
+        <button class="seg-btn" data-set-lh="1.8" type="button">緊湊</button>
+        <button class="seg-btn" data-set-lh="2.05" type="button">舒適</button>
+        <button class="seg-btn" data-set-lh="2.3" type="button">寬敞</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- 主內容區：首頁書目 -->
+  <main id="home-view" class="container">
+    <section class="hero">
+      <div class="hero-badge">原創超長篇連載・萬字大章</div>
+      <div class="hero-title-wrap">
+        <h1 class="hero-title">通天錄</h1>
+        <span class="hero-seal" aria-hidden="true">通天問道</span>
+      </div>
+      <p class="hero-tagline">萬法百途，沒有最好，只有最適合。我即百萬雄師之上限；爭霸不稱帝，問道指太易。</p>
+      <p class="hero-blurb">
+        大昭北境，萬年靈潮初醒，九鼎禹王古紋暗裂。鎮國公府嫡次子沈執自幼懷揣唯己自知之先天玄胚，親立名諱《通天錄》——器隨心生、道隨念化。主動請纓赴最險北疆斷魂關，以現代格物與百藝軍工重鑄邊軍，在太蒼五大同等帝國、百道聖地與中州九大權臣派系的明暗棋局之間，執萬道牛耳，向天問太易。
+      </p>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-num" id="stat-chapters">—</span>
+          <span class="stat-label">已發布章節</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num" id="stat-words">—</span>
+          <span class="stat-label">累計純中文字數</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num" id="stat-latest">—</span>
+          <span class="stat-label">最新更新章</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num" id="stat-updated">—</span>
+          <span class="stat-label">網站更新時間</span>
+        </div>
+      </div>
+
+      <div class="hero-cta">
+        <button id="btn-start-read" class="btn-primary" type="button">從第一章開讀</button>
+        <button id="btn-continue-read" class="btn-secondary hidden" type="button">繼續閱讀</button>
+        <button id="btn-latest-read" class="btn-ghost" type="button">直達最新章</button>
+      </div>
+    </section>
+
+    <section class="toc-section">
+      <div class="toc-header">
+        <h2>卷目章節</h2>
+        <div class="toc-controls">
+          <input id="toc-search" class="search-input" type="search" placeholder="搜尋章號或章名…" />
+          <button id="toc-sort" class="icon-btn" type="button">目前：正序</button>
+        </div>
+      </div>
+      <div id="toc-groups" class="toc-groups"></div>
+    </section>
+  </main>
+
+  <!-- 主內容區：章節閱讀頁 -->
+  <article id="reader-view" class="reader-container hidden">
+    <div class="reader-meta-top">
+      <button id="btn-back-home" class="link-btn" type="button">← 返回書目</button>
+      <span id="reader-act-label" class="act-pill"></span>
+    </div>
+
+    <header class="chapter-head">
+      <h1 id="chapter-title" class="chapter-title">載入中…</h1>
+      <div class="chapter-submeta">
+        <span id="chapter-wordcount"></span>
+        <span>・</span>
+        <span id="chapter-readtime"></span>
+      </div>
+    </header>
+
+    <div id="chapter-body" class="chapter-body"></div>
+
+    <nav class="chapter-nav" aria-label="章節翻頁">
+      <button id="btn-prev-ch" class="nav-btn" type="button">← 上一章</button>
+      <button id="btn-mid-toc" class="nav-btn nav-mid" type="button">全部目錄</button>
+      <button id="btn-next-ch" class="nav-btn nav-next" type="button">下一章 →</button>
+    </nav>
+  </article>
+
+  <!-- 側邊目錄抽屜 -->
+  <div id="drawer-backdrop" class="backdrop hidden"></div>
+  <aside id="toc-drawer" class="drawer hidden" aria-label="快速章節目錄">
+    <div class="drawer-head">
+      <h3>《通天錄》目錄</h3>
+      <button id="drawer-close" class="icon-btn" type="button">關閉</button>
+    </div>
+    <div class="drawer-search-wrap">
+      <input id="drawer-search" class="search-input" type="search" placeholder="快速篩選章節…" />
+    </div>
+    <div id="drawer-list" class="drawer-list"></div>
+  </aside>
+
+  <!-- 無劇透世界觀設定集彈窗 -->
+  <aside id="lore-modal" class="modal hidden" role="dialog" aria-modal="true" aria-label="無劇透世界觀設定集">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h3>太蒼大域・無劇透設定集</h3>
+        <button id="lore-close" class="icon-btn" type="button">關閉</button>
+      </div>
+      <div class="modal-body">
+        <section class="lore-block">
+          <h4>一、修行境界（三階十二境 ＋ 終極超脫）</h4>
+          <ul>
+            <li><strong>人間四境</strong>：蛻境（一至九重）→ 彰曜（初／凝／熾）→ 垂象（虛／真／極）→ 鎮嶽（初／定／擎）</li>
+            <li><strong>山海四境</strong>：破穹 → 御虛 → 定鼎 → 玄聖（當世山海峰頂）</li>
+            <li><strong>神話四境</strong>：神君 → 道君 → 帝尊 → 太初（自萬年前「絕地天通」與靈潮退潮後沉寂）</li>
+            <li><strong>第十三境・終極超脫</strong>：<strong>【太易】</strong>（太易在太初之先，未見氣之始）</li>
+          </ul>
+        </section>
+        <section class="lore-block">
+          <h4>二、萬法百途・修仙百藝</h4>
+          <p>武道玄骨、文儒靈台、兵家軍煞、劍修養鋒、祀典香火、道門煉炁、佛宗明輪、妖靈血脈、魔道巫蠱，加上丹道、器道墨工、陣法、符籙、傀儡、靈農、醫毒、星象占卜——萬法皆可登頂，沒有最好，只有最適合。</p>
+        </section>
+        <section class="lore-block">
+          <h4>三、太蒼五國與百道聖地（極度均勢）</h4>
+          <ul>
+            <li><strong>五大超級帝國</strong>：大昭皇朝（中州）、北庭大朔天朝（朔漠）、西極大梵婆羅聖朝（西域）、南離大楚巫神帝國（南荒）、東溟玄海神朝（東海）。</li>
+            <li><strong>超然百道聖地</strong>：天工總坊、劍閣、青崖書院、道門三十六洞天、丹鼎聖谷、武廟殘脈——與五大帝國實力平均，各守道統與立場。</li>
+          </ul>
+        </section>
+        <section class="lore-block">
+          <h4>四、故事基調</h4>
+          <p>書中無臉譜化絕對正邪，人人皆有立場、個性與抱負；明謀、陰謀、陽謀皆是彼此較量「誰是誰的棋子」。</p>
+        </section>
+      </div>
+    </div>
+  </aside>
+
+  <button id="btn-top" class="float-top hidden" type="button" title="回到頂部">▲</button>
+
+  <footer class="site-footer">
+    <p>《通天錄》原創連載站・自動構建自本地章節庫・支援鍵盤 ← / → 切換章節</p>
+  </footer>
+
+  <script src="./app.js"></script>
+</body>
+</html>
